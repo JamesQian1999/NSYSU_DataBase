@@ -7,7 +7,7 @@ if($_SESSION['id'] == "admin" || $_SESSION['id'] == "office")
 {
         //將$_SESSION['id']丟給$id
         //這樣在下SQL語法時才可以給搜尋的值
-		$id = $_GET['id'];
+		$id = @$_GET['id'];
         //若以下$id直接用$_SESSION['id']將無法使用
 		$sql = "SELECT * FROM member_table where id='$id'";
 	
@@ -19,40 +19,52 @@ if($_SESSION['id'] == "admin" || $_SESSION['id'] == "office")
 			exit();
 		}
     
-        echo "<form name=\"form\" method=\"post\" action=\"update_finish.php\">";
-        echo "帳號：<input type=\"text\" name=\"id\" value=\"$row[0]\" />(此項目無法修改) <br>";
-        echo "密碼：<input type=\"password\" name=\"pw\" value=\"$row[1]\" /> <br>";
-        echo "姓名：<input type=\"text\" name=\"name\" value=\"$row[2]\" /> <br>";
-        echo "實驗室號碼：<input type=\"text\" name=\"lab\" value=\"$row[3]\" /> <br>";
-        echo "Email：<input type=\"text\" name=\"email\" value=\"$row[4]\" /> <br>";
-		echo "Telephone：<input type=\"text\" name=\"telephone\" value=\"$row[5]\" /> <br>";
-        echo "<input type=\"submit\" name=\"button\" value=\"確定\" />";
-        echo "</form>";
+        echo "<center>";
 		
 		$sql_a = "SELECT * FROM member_table";
         $res = mysqli_query($con, $sql_a);
 		$rows = mysqli_affected_rows($con);//獲取行數
         $colums = mysqli_num_fields($res);//獲取列數
-        echo "資料庫的"."$member_name"."表的所有使用者資料如下：<br/>";
-        echo "共計".$rows."行 ".$colums."列<br/>";
+        echo "<h4 class=\"title toc-ignore\">資料庫的所有使用者資料<br/></h4>";
+        
         
         echo "<table><tr>";
 		echo "<td>編號</td><td>帳號</td><td>密碼</td><td>姓名</td><td>實驗室號碼</td><td>Email</td><td>Telephone</td>";
         echo "</tr>";
-        while($row = mysqli_fetch_row($res)){
+        $offset = 0;
+        while($row = mysqli_fetch_assoc($res)){
             
-            if($_SESSION['id'] == "office" && $row[1] == "admin")
+            if($_SESSION['id'] == "office" && $row['id'] == "admin")
+            {
+                $offset = -1;
                 continue;
+            }
             
             echo "<tr>";
             
-            for($i=0; $i<$colums; $i++)
-                echo "<td>$i $row[$i]</td>";
+                echo "<td>";echo $row['memberid']+$offset;echo "</td>";
+                echo "<td>";echo $row['id'];echo "</td>";
+                echo "<td>";echo $row['pw'];echo "</td>";
+                echo "<td>";echo $row['name'];echo "</td>";
+                echo "<td>";echo $row['lab'];echo "</td>";
+                echo "<td>";echo $row['email'];echo "</td>";
+                echo "<td>";echo $row['telephone'];echo "</td>";
+                echo "</tr>";
 
             echo "</tr>";
         }
         echo "</table>";
 		
+        echo "<form name=\"form\" method=\"post\" action=\"update_finish.php\">";
+        echo " <br> <br>帳號：<input type=\"text\" name=\"id\" /> <br>";
+        echo "密碼：<input type=\"password\" name=\"pw\" /> <br>";
+        echo "姓名：<input type=\"text\" name=\"name\" /> <br>";
+        echo "實驗室編號：<input type=\"text\" name=\"lab\"  /> <br>";
+        echo "Email：<input type=\"text\" name=\"email\"  /> <br>";
+		echo "電話<input type=\"text\" name=\"telephone\"  /> <br> <br>";
+        echo "<input type=\"submit\" name=\"button\" value=\"確定\" style=\"height:50px; width:100px\"/>";
+        echo "</form>";
+
         echo "</form>";
 }
 else

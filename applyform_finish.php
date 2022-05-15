@@ -3,22 +3,26 @@
 <?php
 include("mysql_connect.inc.php");
 
-$rentname = $_POST['rentname'];
-$roomid = $_POST['roomid'];
-$date = date('Y-m-d', strtotime($_POST['date']));
-$class = $_POST['class'];
-$used = $_POST['used'];
-$devices=$_POST['devices']; 
-$returndate = date('Y-m-d', strtotime($_POST['returndate']));
+$rentname = @$_POST['rentname'];
+$roomid = @$_POST['roomid'];
+$date = date('Y-m-d', strtotime(@$_POST['date']));
+$class = @$_POST['class'];
+$used = @$_POST['used'];
+$devices=@$_POST['devices']; 
+$returndate = date('Y-m-d', strtotime(@$_POST['returndate']));
 
 if($rentname != null && $roomid != null && $date != null && $class != null && $returndate != null)
 {
         //新增資料進資料庫語法
-		$dev="";
-		foreach($devices as $dev1)  
-		{ 
-			$dev .= $dev1." ";  
-		}  
+        $dev="";
+        if($devices != null)
+        {
+            foreach($devices as $dev1)  
+            { 
+                $dev .= $dev1." ";  
+            }  
+        }
+        
 
         // echo "roomid:".$roomid."  date:".$date."  class:".$class."  cla:".$cla;
 
@@ -30,7 +34,7 @@ if($rentname != null && $roomid != null && $date != null && $class != null && $r
                             date   = '".$date."'   AND 
                             class =  '".$class."'
                 ";
-        echo "sql_r:".$sql_r;
+
         $result = mysqli_query($con, $sql_r);
         
 		//$sql_d = "SELECT * FROM apply_table WHERE roomid = '".$roomid."' AND date = '".$date."' AND class = '".$class."'";
@@ -54,7 +58,6 @@ if($rentname != null && $roomid != null && $date != null && $class != null && $r
 }
 else
 {
-        echo '您無權限觀看此頁面!';
-        //echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
+        echo '未完整輸入!<meta http-equiv=REFRESH CONTENT=2;url=login.php>';
 }
 ?>

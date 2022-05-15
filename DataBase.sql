@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- 主機： 127.0.0.1
--- 產生時間： 2020-05-08 15:31:46
--- 伺服器版本： 10.4.11-MariaDB
--- PHP 版本： 7.4.5
+-- 主機： localhost
+-- 產生時間： 2022 年 05 月 14 日 18:40
+-- 伺服器版本： 10.4.24-MariaDB
+-- PHP 版本： 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `mydb`
+-- 資料庫: `DataBase`
 --
 
 -- --------------------------------------------------------
@@ -43,10 +43,10 @@ CREATE TABLE `apply_table` (
 --
 
 INSERT INTO `apply_table` (`applyid`, `rentname`, `roomid`, `date`, `class`, `used`, `devices`, `returndate`) VALUES
-(1, 'B053040042', 5012, '2020-05-08', '2. 9:10-10:00', '上課', '電腦 麥克風 投影機 雷射筆 ', '2020-05-08'),
-(2, 'B053040042', 1006, '2020-05-12', '5. 13:10-14:00', '報告', '電腦 麥克風 投影機 雷射筆 ', '2020-05-13'),
-(3, 'B065090027', 9032, '2020-05-08', '2. 9:10-10:00', '睡覺', '麥克風 雷射筆 ', '2020-05-13'),
-(4, 'B053040000', 1005, '2020-05-12', '5. 13:10-14:00', 'meeting', '電腦 ', '2020-05-20');
+(1, 'CHIEN CHEN', 1005, '2022-05-03', '10:10-11:00', '演習課', '電腦 麥克風 投影機 雷射筆 ', '2022-05-05'),
+(2, '王大明', 1023, '2022-04-26', '11:10-12:00', '讀書', '電腦 投影機 ', '2022-05-15'),
+(3, '林小琪', 5012, '2022-05-16', '15:10-16:00', '社團課', '投影機 雷射筆 ', '2022-05-18'),
+(8, 'James Qian', 1005, '2022-05-17', '15:10-16:00', 'sleep', '電腦 麥克風 ', '2022-06-02');
 
 -- --------------------------------------------------------
 
@@ -83,9 +83,8 @@ CREATE TABLE `member_table` (
 INSERT INTO `member_table` (`memberid`, `id`, `pw`, `name`, `lab`, `email`, `telephone`) VALUES
 (1, 'admin', 'admin', '系統管理員', 4444, 'admin@gmail.com', 963258741),
 (2, 'office', 'office', '系辦', 5002, 'office@gmail.com', 73259524),
-(3, 'B053040000', '4321', 'qq', 1111, 'qqqq@gmail.com', 46564646),
-(4, 'B065090027', '0612', 'pointer', 5000, 'pointer@gmail.com', 912365489),
-(5, 'B053040042', '783657', 'meng', 9999, 'meng@gmail.com', 987654321);
+(3, 'james', 'office', '王大明', 5012, 'jamesqian@gmail.com', 989819023),
+(4, 'test', 'test', 'test', 1234, '1234@1234', 987654321);
 
 -- --------------------------------------------------------
 
@@ -133,7 +132,7 @@ ALTER TABLE `room_table`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `apply_table`
 --
 ALTER TABLE `apply_table`
-  MODIFY `applyid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `applyid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `devices_table`
@@ -145,7 +144,7 @@ ALTER TABLE `devices_table`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `member_table`
 --
 ALTER TABLE `member_table`
-  MODIFY `memberid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `memberid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `room_table`

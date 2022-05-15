@@ -6,8 +6,6 @@ include("mysql_connect.inc.php");
 if($_SESSION['id'] == "admin")
 {
         echo "<form name=\"form\" method=\"post\" action=\"delete_finish.php\">";
-        echo "要刪除的帳號：<input type=\"text\" name=\"id\" /> <br>";
-        echo "<input type=\"submit\" name=\"button\" value=\"刪除\" /><br><br><br>";
 		
 		$sql = "SELECT * FROM member_table";
         $result = mysqli_query($con, $sql);
@@ -19,11 +17,11 @@ if($_SESSION['id'] == "admin")
 		
 		$rows = mysqli_affected_rows($con);//獲取行數
         $colums = mysqli_num_fields($result);//獲取列數
-        echo "資料庫的"."$member_name"."表的所有使用者資料如下：<br/>";
-        echo "共計".$rows."行 ".$colums."列<br/>";
-        
+        echo "<center>";
+        echo "<h4 class=\"title toc-ignore\">資料庫的所有使用者資料<br/></h4>";
+
         echo "<table><tr>";
-		echo "<td>編號</td><td>帳號</td><td>密碼</td><td>姓名</td><td>實驗室號碼</td><td>Email</td><td>Telephone</td>";
+		echo "<td>編號</td><td>帳號</td><td>密碼</td><td>姓名</td><td>實驗室號碼</td><td>Email</td><td>電話</td>";
         echo "</tr>";
         while($row = mysqli_fetch_row($result)){
             echo "<tr>";
@@ -34,6 +32,9 @@ if($_SESSION['id'] == "admin")
         }
         echo "</table>";
 		
+        echo "<br><br>擬刪除帳號：<input type=\"text\" name=\"id\" /> <br> <br>";
+        echo "<input type=\"submit\" name=\"button\" value=\"刪除\" style=\"height:40px; width:85px; background-color:rgb(232,106,192);\" /><br><br><br>";
+
         echo "</form>";
 }
 else
